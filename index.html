@@ -1,25 +1,79 @@
 <!doctype html>
-<html lang="en"><head>
+<html lang="en">
+<head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Monday Misfits Central</title><link rel="stylesheet" href="styles.css">
-</head><body>
-<header class="topbar"><div><div class="eyebrow">2026 MONDAY MISFITS</div><h1>League Central</h1></div><div class="round-pill">Through Round 10</div></header>
+<title>Monday Misfits Central</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div><div class="eyebrow">2026 MONDAY MISFITS</div><h1>League Central</h1></div>
+  <div class="round-pill">Through Round 9</div>
+</header>
 <nav class="tabs">
-<button class="tab active" data-tab="home">Home</button><button class="tab" data-tab="playoff">Playoff Center</button>
-<button class="tab" data-tab="week">Round 11 Preview</button><button class="tab" data-tab="sos">Strength of Schedule</button>
-<button class="tab" data-tab="power">Power Rankings</button><button class="tab" data-tab="sim">Playoff Machine</button>
-<button class="tab" data-tab="team">Team Center</button><button class="tab" data-tab="stroke">Stroke-Play Preview</button>
+<button class="tab active" data-tab="home">Home</button>
+<button class="tab" data-tab="playoff">Playoff Center</button>
+<button class="tab" data-tab="week">Matchup Center</button>
+<button class="tab" data-tab="sos">Strength of Schedule</button>
+<button class="tab" data-tab="power">Power Rankings</button>
+<button class="tab" data-tab="sim">Playoff Machine</button>
+<button class="tab" data-tab="team">Team Center</button>
+<button class="tab" data-tab="stroke">Stroke-Play Preview</button>
 </nav>
 <main>
-<section id="home" class="panel active"><div id="headlineHero" class="feature hero-feature"></div><div id="storyCards" class="story-grid"></div>
-<div class="grid two"><div class="card"><div class="card-head"><h2>Current Standings</h2><span>Top 12 qualify</span></div><div id="standingsTable"></div></div>
-<div class="card"><div class="card-head"><h2>Bubble Watch</h2><span>9th through 18th</span></div><div id="bubbleTable"></div></div></div></section>
-<section id="playoff" class="panel"><div class="hero-grid" id="playoffCards"></div><div class="card"><div class="card-head"><h2>Playoff Outlook</h2><span>Model estimate</span></div><div id="playoffTable"></div></div></section>
-<section id="week" class="panel"><div id="weekHeadline" class="feature"></div><div class="card"><div class="card-head"><h2>Round 11 Impact Rankings</h2><span>League-wide implications</span></div><div id="matchupTable"></div></div></section>
-<section id="sos" class="panel"><div class="card"><div class="card-head"><h2>Remaining Strength of Schedule</h2><span>Hardest ranked #1</span></div><div id="sosTable"></div></div></section>
-<section id="power" class="panel"><div class="grid two"><div class="card"><div class="card-head"><h2>Power Rankings</h2><span>Points + form + schedule</span></div><div id="powerTable"></div></div><div class="card"><div class="card-head"><h2>Trend Board</h2><span>Recent form</span></div><div id="trendTable"></div></div></div></section>
-<section id="sim" class="panel"><div class="card"><div class="card-head"><h2>Round 11 Playoff Machine</h2><span>Enter points for the first-listed team</span></div><div id="simControls" class="sim-grid"></div><button id="runSim" class="primary">Update standings</button></div><div class="card"><div class="card-head"><h2>Simulated Standings</h2><span>After Round 11</span></div><div id="simTable"></div></div></section>
-<section id="team" class="panel"><div class="selector-row"><label for="teamSelect">Select a team</label><select id="teamSelect"></select></div><div id="teamView"></div></section>
-<section id="stroke" class="panel"><div class="card"><div class="card-head"><h2>Stroke-Play Preview</h2><span>Playoffs switch to stroke play</span></div><div id="strokeTable"></div></div></section>
-</main><footer>Unofficial companion site for the Monday Misfits Golf League.</footer>
-<script src="data.js"></script><script src="script.js"></script></body></html>
+<section id="home" class="panel active">
+  <div id="headlineHero" class="feature hero-feature"></div>
+  <div class="story-grid" id="storyCards"></div>
+  <div class="grid two">
+    <div class="card"><div class="card-head"><h2>Current Standings</h2><span>Top 12 qualify</span></div><div id="standingsTable"></div></div>
+    <div class="card"><div class="card-head"><h2>Bubble Watch</h2><span>Every half-point matters</span></div><div id="bubbleTable"></div></div>
+  </div>
+</section>
+
+<section id="playoff" class="panel">
+  <div class="hero-grid">
+    <div class="hero-card accent"><span>Current cutoff</span><strong>44.0</strong><small>Projected line: 79.5</small></div>
+    <div class="hero-card"><span>Teams in range</span><strong>8</strong><small>9th through 16th</small></div>
+    <div class="hero-card"><span>Rounds left</span><strong>7</strong><small>70 points available</small></div>
+    <div class="hero-card"><span>Playoff format</span><strong>Stroke play</strong><small>Regular season is match play</small></div>
+  </div>
+  <div class="card"><div class="card-head"><h2>Playoff Outlook</h2><span>Model estimate</span></div><div id="playoffTable"></div></div>
+</section>
+
+<section id="week" class="panel">
+  <div id="weekHeadline" class="feature"></div>
+  <div class="card"><div class="card-head"><h2>Round 10 Impact Rankings</h2><span>League-wide implications</span></div><div id="matchupTable"></div></div>
+</section>
+
+<section id="sos" class="panel">
+  <div class="card"><div class="card-head"><h2>Remaining Strength of Schedule</h2><span>Hardest ranked #1</span></div><div id="sosTable"></div></div>
+</section>
+
+<section id="power" class="panel">
+  <div class="grid two">
+    <div class="card"><div class="card-head"><h2>Power Rankings</h2><span>Points + form + schedule</span></div><div id="powerTable"></div></div>
+    <div class="card"><div class="card-head"><h2>Trend Board</h2><span>Last 3 rounds vs season</span></div><div id="trendTable"></div></div>
+  </div>
+</section>
+
+<section id="sim" class="panel">
+  <div class="card">
+    <div class="card-head"><h2>Round 10 Playoff Machine</h2><span>Change projected points earned</span></div>
+    <div id="simControls"></div>
+    <button id="runSim" class="primary">Update standings</button>
+  </div>
+  <div class="card"><div class="card-head"><h2>Simulated Standings</h2><span>After Round 10</span></div><div id="simTable"></div></div>
+</section>
+
+<section id="team" class="panel">
+  <div class="selector-row"><label for="teamSelect">Select a team</label><select id="teamSelect"></select></div>
+  <div id="teamView"></div>
+</section>
+
+<section id="stroke" class="panel">
+  <div class="card"><div class="card-head"><h2>Stroke-Play Preview</h2><span>Lower net average is better</span></div><div id="strokeTable"></div></div>
+</section>
+</main>
+<footer>Unofficial companion site for the Monday Misfits Golf League.</footer>
+<script src="data.js"></script><script src="script.js"></script>
+</body></html>

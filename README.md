@@ -1,18 +1,17 @@
-# Monday Misfits League Central — Week 10 Update
+# Monday Misfits League Central v2
 
-This package updates the site through Round 10 using the four GolfLeagueTracker CSV exports.
+## Upload
+1. Extract the ZIP.
+2. Upload the five files to the root of your GitHub repository.
+3. Commit changes.
+4. GitHub Pages should deploy automatically if already enabled.
 
-## Update GitHub
-1. Extract this ZIP.
-2. In the GitHub repository, choose **Add file → Upload files**.
-3. Upload the five individual files:
-   - index.html
-   - styles.css
-   - script.js
-   - data.js
-   - README.md
-4. Allow GitHub to replace the existing files.
-5. Click **Commit changes**.
-6. Wait about 1–3 minutes, then refresh the live website with Ctrl+Shift+R.
+Files:
+- index.html
+- styles.css
+- script.js
+- data.js
+- README.md
 
-Playoff percentages are model estimates, not official league probabilities.
+## Notes
+Playoff odds are model estimates based on current points, recent form, and remaining schedule strength.

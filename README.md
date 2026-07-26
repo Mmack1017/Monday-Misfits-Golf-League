@@ -1,25 +1,16 @@
-# Monday Misfits League Central — Week 10 Final
+# Monday Misfits League Central — Week 11 Update
 
-Updated through Round 10.
+Updated through Round 11.
 
-Included sections:
+Includes:
 - Home
 - Playoff Center
-- Round 11 Matchup Center
+- Round 12 Matchup Center
 - Strength of Schedule
 - Power Rankings
-- Playoff Machine
+- Round 12 Playoff Machine
 - Team Center
+- Team-selectable Who Should I Root For? guide
 - Stroke-Play Preview
 
-## Upload to GitHub
-Upload these five individual files to the repository root and replace the existing files:
-
-- index.html
-- styles.css
-- script.js
-- data.js
-- README.md
-
-Commit the changes, wait 1–3 minutes, and refresh the live site.
-The index file includes cache-busting so the updated Week 10 data loads immediately.
+Upload the five individual files to the GitHub repository root and replace the existing files.

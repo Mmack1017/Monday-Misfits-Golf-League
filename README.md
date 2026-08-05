@@ -1,25 +1,17 @@
-# Monday Misfits League Central — Finalized Week 12 Update
+# Monday Misfits League Central — Week 13 Update
 
-This version uses the completed Week 12 exports, including the previously missing matchup.
+Updated through Round 13.
 
-Included:
+Includes:
 - Home
 - Playoff Center
-- Round 13 Matchup Center
-- Strength of Schedule
+- Round 14 Matchup Center
+- Remaining Strength of Schedule
 - Power Rankings
-- Round 13 Playoff Machine
+- Round 14 Playoff Machine
 - Team Center
-- Team-selectable Who Should I Root For? guide
-- Stroke-Play Preview
+- Team-selectable Who Should I Root For?
+- Gross Stroke Play leaderboard
+- Net Stroke Play leaderboard
 
-## Upload to GitHub
-Extract the ZIP and upload these five individual files to the repository root:
-
-- index.html
-- styles.css
-- script.js
-- data.js
-- README.md
-
-Replace the existing files and commit the changes.
+Upload the five individual files to the GitHub repository root and replace the existing files.

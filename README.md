@@ -1,7 +1,23 @@
-# Monday Misfits League Central — Round 14 Update
-Official results through Round 14. Previewing Round 15 with two rounds remaining.
+# Monday Misfits League Central — FINAL WEEK Update
 
-Includes Home, Playoff Center, Matchup Center, SOS, Power Rankings, Playoff Machine, Team Center, team-selectable rooting guide, and separate Gross/Net Stroke Play leaderboards.
+Updated through Round 14 with one regular-season match remaining.
 
-Upload these five individual files to the GitHub repository root and replace the existing versions:
-index.html, styles.css, script.js, data.js, README.md
+Includes:
+- Final Week homepage
+- League-wide playoff board
+- Current cut line
+- Final-week matchup impact rankings
+- Final-opponent strength of schedule
+- Power Rankings
+- Final Week Playoff Machine
+- Team Center
+- Team-selectable Who Should I Root For?
+- Gross Stroke Play leaderboard
+- Net Stroke Play leaderboard
+
+Upload these five individual files to the GitHub repository root and replace the existing files:
+- index.html
+- styles.css
+- script.js
+- data.js
+- README.md

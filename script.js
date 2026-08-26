@@ -1,54 +1,45 @@
-const D=window.LEAGUE_DATA,byId=Object.fromEntries(D.teams.map(t=>[t.team,t])),fmt=n=>Number(n).toFixed(1);
-const status=t=>t.position<=12?'IN':t.position<=16?'BUBBLE':'OUT',cls=s=>s==='IN'?'in':s==='BUBBLE'?'bubble':'out';
-function table(h,r){return `<table><thead><tr>${h.map(x=>`<th>${x}</th>`).join('')}</tr></thead><tbody>${r.map(row=>`<tr>${row.map(x=>`<td>${x}</td>`).join('')}</tr>`).join('')}</tbody></table>`}
-document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.tab,.panel').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById(b.dataset.tab).classList.add('active')}));
-const sorted=[...D.teams].sort((a,b)=>b.points-a.points||a.position-b.position);
-const S=D.storylines,big=byId[S.biggestWeek],rise=byId[S.biggestRiser],hot=byId[S.hottest],hard=byId[S.hardestSOS];
-document.getElementById('headlineHero').innerHTML=`<div class="eyebrow">FINAL WEEK</div><h2>One night decides the playoff field</h2><p>The current cut line is <strong>${fmt(D.meta.currentCutoff)}</strong>. Teams from the middle of the standings through the bubble still have meaningful movement available, and several head-to-head matchups directly redistribute playoff points.</p>`;
-document.getElementById('storyCards').innerHTML=[
-['Biggest week',big.name,`${fmt(big.weekPoints)} points`],['Biggest riser',rise.name,`${rise.positionMove>0?'+':''}${rise.positionMove} places`],
-['Hottest team',hot.name,`${fmt(hot.last3)} pts/round — last 3`],['Hardest road',hard.name,`SOS rank #${hard.sosRank}`]
-].map(x=>`<div class="story-card"><span>${x[0]}</span><strong>${x[1]}</strong><small>${x[2]}</small></div>`).join('');
-document.getElementById('standingsTable').innerHTML=table(['Pos','Team','Pts','Week','Odds','Status'],sorted.map(t=>[t.position,`#${t.team} ${t.name}`,fmt(t.points),fmt(t.weekPoints),`${t.playoffOdds}%`,`<span class="pill ${cls(status(t))}">${status(t)}</span>`]));
-document.getElementById('bubbleTable').innerHTML=table(['Pos','Team','Pts','Gap','Need Avg'],sorted.filter(t=>t.position>=9&&t.position<=18).map(t=>[t.position,`#${t.team} ${t.name}`,fmt(t.points),fmt(Math.max(0,D.meta.currentCutoff-t.points)),fmt(t.neededAvg)]));
-document.getElementById('playoffCards').innerHTML=[
-['Current cutoff',fmt(D.meta.currentCutoff),'Top 12 qualify'],['Projected cutoff',fmt(D.meta.projectedCut),'Five points per remaining round'],
-['Rounds left',D.meta.roundsLeft,'60 points available'],['Playoff format','Stroke play','Regular season is match play']
-].map(x=>`<div class="hero-card"><span>${x[0]}</span><strong>${x[1]}</strong><small>${x[2]}</small></div>`).join('');
-document.getElementById('playoffTable').innerHTML=table(['Pos','Team','Pts','Odds','Projected','Need Avg','SOS','Destiny'],sorted.map(t=>[t.position,`#${t.team} ${t.name}`,fmt(t.points),`${t.playoffOdds}%`,fmt(t.projected),fmt(t.neededAvg),t.sosRank,t.controlsDestiny?'Controls':'Needs help']));
-
-document.getElementById('scenarioTable').innerHTML=table(
- ['Pos','Team','Pts','Final Opponent','Best Final','Worst Final','Status'],
- D.scenarioBoard.map(s=>[
-   s.position,
-   `#${s.team} ${byId[s.team].name}`,
-   fmt(s.points),
-   `#${s.opponent} ${byId[s.opponent].name}`,
-   fmt(s.maxFinal),
-   fmt(s.minFinal),
-   s.status
- ])
-);
-
-const motw=D.nextMatchups[0],ma=byId[motw.a],mb=byId[motw.b];
-document.getElementById('weekHeadline').innerHTML=`<div class="eyebrow">FINAL WEEK MATCH OF THE WEEK</div><h2>#${ma.team} ${ma.name} vs #${mb.team} ${mb.name}</h2><p>Playoff impact <strong>${motw.impact}/100</strong>. The ranking weighs current position, direct bubble pressure, points separation, and top-seed implications.</p>`;
-document.getElementById('matchupTable').innerHTML=table(['Rank','Matchup','Impact','Implication'],D.nextMatchups.map((m,i)=>{const a=byId[m.a],b=byId[m.b],ic=m.impact>=80?'high':m.impact>=55?'med':'low';let imp=(a.position<=12&&b.position<=12)?'Seeding and playoff cushion':((a.position<=16||b.position<=16)?'Direct bubble pressure':'Spoiler opportunity');return[i+1,`#${a.team} ${a.name}<br><small>vs</small><br>#${b.team} ${b.name}`,`<span class="impact ${ic}">${m.impact}</span>`,imp]}));
-document.getElementById('sosTable').innerHTML=table(['Rank','Team','SOS','Avg Opp Pts','Top 8','Top 12','Bubble','Difficulty'],D.sos.map(x=>{const t=byId[x.team],d=x.score>=80?'Brutal':x.score>=65?'Very hard':x.score>=50?'Difficult':x.score>=35?'Average':x.score>=20?'Favorable':'Easiest';return[x.rank,`#${t.team} ${t.name}`,fmt(x.score),fmt(x.avgOppPts),x.top8,x.top12,x.bubble,d]}));
-const power=[...D.teams].sort((a,b)=>(b.points*.43+b.last3*5*.30+(100-b.sosScore)*.14+(100-(b.netAvg||40)*2)*.13)-(a.points*.43+a.last3*5*.30+(100-a.sosScore)*.14+(100-(a.netAvg||40)*2)*.13));
-document.getElementById('powerTable').innerHTML=table(['Rank','Team','Pts','3-Wk','Net Avg','SOS'],power.map((t,i)=>[i+1,`#${t.team} ${t.name}`,fmt(t.points),fmt(t.last3),fmt(t.netAvg),t.sosRank]));
-document.getElementById('trendTable').innerHTML=table(['Team','Trend','3-Wk','5-Wk','Move','Field W-L-T'],[...D.teams].sort((a,b)=>b.last3-a.last3).map(t=>[`#${t.team} ${t.name}`,t.trend,fmt(t.last3),fmt(t.last5),`${t.positionMove>0?'+':''}${t.positionMove}`,`${t.fieldWins}-${t.fieldLosses}-${t.fieldTies}`]));
-const sim=document.getElementById('simControls');D.nextMatchups.forEach((m,i)=>{let a=byId[m.a],b=byId[m.b];sim.innerHTML+=`<div class="sim-row"><label>#${a.team} ${a.name}<br>vs<br>#${b.team} ${b.name}</label><input id="sim${i}" type="number" min="0" max="10" step=".5" value="5"><small>Points for Team ${a.team}; opponent gets the remainder</small></div>`});
-function runSim(){const p=Object.fromEntries(D.teams.map(t=>[t.team,t.points]));D.nextMatchups.forEach((m,i)=>{let x=Number(document.getElementById('sim'+i).value);p[m.a]+=x;p[m.b]+=10-x});const rows=[...D.teams].sort((a,b)=>p[b.team]-p[a.team]).map((t,i)=>[i+1,`#${t.team} ${t.name}`,fmt(p[t.team]),i<12?'IN':'OUT']);document.getElementById('simTable').innerHTML=table(['Pos','Team','Projected Pts','Status'],rows)}document.getElementById('runSim').addEventListener('click',runSim);runSim();
-const sel=document.getElementById('teamSelect');[...D.teams].sort((a,b)=>a.team-b.team).forEach(t=>{let o=document.createElement('option');o.value=t.team;o.textContent=`Team ${t.team} — ${t.name}`;sel.appendChild(o)});sel.value=11;
-function renderTeam(){const t=byId[+sel.value],s=D.sos.find(x=>x.team===t.team),rows=s.opps.map((o,i)=>[16+i,D.dates[String(16+i)],`#${o} ${byId[o].name}`,byId[o].position,fmt(byId[o].points)]),guide=(D.rootingGuides[String(t.team)]||[]).map(g=>[`#${g.a} ${byId[g.a].name}<br><small>vs</small><br>#${g.b} ${byId[g.b].name}`,`Root for #${g.rootFor} ${byId[g.rootFor].name}`,g.importance,g.reason]);document.getElementById('teamView').innerHTML=`<div class="team-grid"><div class="metric"><span>Position</span><strong>${t.position}</strong></div><div class="metric"><span>Playoff odds</span><strong>${t.playoffOdds}%</strong></div><div class="metric"><span>3-week average</span><strong>${fmt(t.last3)}</strong></div><div class="metric"><span>SOS rank</span><strong>${t.sosRank}</strong></div></div><div class="grid two"><div class="card"><div class="card-head"><h2>${t.name}</h2><span>${status(t)}</span></div><p>Projected finish: <strong>${fmt(t.projected)} points</strong> · <strong>${t.finalWeekTarget}</strong></p><p>Needed average to reach ${fmt(D.meta.projectedCut)}: <strong>${fmt(t.neededAvg)}</strong></p><p>Round 11: <strong>${fmt(t.weekPoints)} points</strong> · Stroke-play net: <strong>${fmt(t.round14Net)}</strong></p><p>Season stroke average: <strong>${fmt(t.strokeAvg)}</strong> · Field record: <strong>${t.fieldWins}-${t.fieldLosses}-${t.fieldTies}</strong></p><div class="bar"><span style="width:${t.playoffOdds}%"></span></div></div><div class="card"><div class="card-head"><h2>Final opponent</h2><span>Final match</span></div>${table(['Round','Date','Opponent','Pos','Pts'],rows)}</div></div><div class="card"><div class="card-head"><h2>Who Should I Root For?</h2><span>Final Week</span></div>${table(['Outside Matchup','Root For','Impact','Why'],guide)}</div>`}sel.addEventListener('change',renderTeam);renderTeam();
-document.getElementById('strokeTable').innerHTML=`
-<div class="grid two">
-  <div>
-    <div class="card-head"><h2>Gross Stroke Play</h2><span>Lowest actual scores</span></div>
-    ${table(['Rank','Team','Avg Gross','Best Gross','R14 Gross','Current Pos'],[...D.teams].sort((a,b)=>(a.grossStrokeAvg||99)-(b.grossStrokeAvg||99)).map((t,i)=>[i+1,`#${t.team} ${t.name}`,fmt(t.grossStrokeAvg),fmt(t.grossBest),fmt(t.round14Gross),t.position]))}
-  </div>
-  <div>
-    <div class="card-head"><h2>Net Stroke Play</h2><span>Handicap-adjusted</span></div>
-    ${table(['Rank','Team','Avg Net','Best Net','R14 Net','Playoff Status'],[...D.teams].sort((a,b)=>(a.netStrokeAvg||99)-(b.netStrokeAvg||99)).map((t,i)=>[i+1,`#${t.team} ${t.name}`,fmt(t.netStrokeAvg),fmt(t.netBest),fmt(t.round14Net),status(t)]))}
-  </div>
-</div>`;
+const D=window.LEAGUE_DATA, by=Object.fromEntries(D.teams.map(t=>[t.team,t]));
+const fmt=x=>Number(x).toFixed(Number(x)%1?1:0);
+const table=(heads,rows)=>`<div class="tablewrap"><table><thead><tr>${heads.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr class="${r._cls||''}">${r.map? r.map(x=>`<td>${x}</td>`).join(''):''}</tr>`).join('')}</tbody></table></div>`;
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));document.getElementById(b.dataset.tab).classList.add('active')});
+const t11=by[11];
+document.getElementById('homeCards').innerHTML=[
+ ['Final Seed','#11','Up from 12th entering finale'],['Final Points','80.5','6.5 points in final match'],['R16 Gross',fmt(t11.r16Gross),'Final regular-season round'],['R16 Net',fmt(t11.r16Net),'Handicap-adjusted'],['Round 1','#6 vs #11','Team 2 vs Team 11']
+].map(x=>`<div class="mini"><span>${x[0]}</span><strong>${x[1]}</strong><small>${x[2]}</small></div>`).join('');
+document.getElementById('field').innerHTML=table(['Seed','Team','Points','Final Week','Status'],D.playoffs.map((id,i)=>{let t=by[id],r=[`<span class="seed">${i+1}</span>`,`#${id} ${t.name}`,fmt(t.points),fmt(t.finalPts),i<4?'<span class="bye">FIRST-ROUND BYE</span>':'Round 1'];r._cls=id===11?'team11':'';return r}));
+document.getElementById('bracketGrid').innerHTML=`
+<div class="match"><div class="eyebrow">FIRST-ROUND BYES</div>${D.playoffs.slice(0,4).map((id,i)=>`<p><span class="seed">${i+1}</span> #${id} <strong>${by[id].name}</strong></p>`).join('')}</div>
+<div>${D.round1.map(m=>`<div class="match"><div class="eyebrow">ROUND 1</div><div><span class="seed">${m.s1}</span> #${m.a} <strong>${by[m.a].name}</strong></div><div class="vs">vs</div><div><span class="seed">${m.s2}</span> #${m.b} <strong>${by[m.b].name}</strong></div></div>`).join('')}</div>`;
+document.getElementById('matchupCards').innerHTML=D.round1.map(m=>{let a=by[m.a],b=by[m.b],edge=m.edge?by[m.edge]:null;return `<div class="match ${m.a===11||m.b===11?'team11':''}"><div class="eyebrow">#${m.s1} VS #${m.s2}</div><h2>Team ${m.a} vs Team ${m.b}</h2><p>${a.name}<br><span class="muted">vs</span><br>${b.name}</p><p>Net avg: <strong>${a.netAvg}</strong> vs <strong>${b.netAvg}</strong><br>Gross avg: ${a.grossAvg} vs ${b.grossAvg}</p><p class="edge">${edge?`Season net-average edge: Team ${edge.team} by ${m.netDiff}`:'Even on season net average'}</p></div>`}).join('');
+let gross=[...D.teams].sort((a,b)=>a.grossAvg-b.grossAvg), net=[...D.teams].sort((a,b)=>a.netAvg-b.netAvg);
+document.getElementById('gross').innerHTML=table(['Rank','Team','Avg','R16'],gross.map((t,i)=>{let r=[i+1,`#${t.team} ${t.name}`,t.grossAvg,fmt(t.r16Gross)];r._cls=t.team===11?'team11':'';return r}));
+document.getElementById('net').innerHTML=table(['Rank','Team','Avg','R16'],net.map((t,i)=>{let r=[i+1,`#${t.team} ${t.name}`,t.netAvg,fmt(t.r16Net)];r._cls=t.team===11?'team11':'';return r}));
+const sel=document.getElementById('teamSelect');sel.innerHTML=D.teams.map(t=>`<option value="${t.team}" ${t.team===11?'selected':''}>#${t.team} ${t.name}</option>`).join('');
+function teamView(){
+ let t=by[+sel.value],p=t.playoffProfile,seed=p.seed;
+ let opponent=p.opponent?by[p.opponent]:null;
+ let playoffBlock=p.qualified
+   ? `<div class="hero small ${t.team===11?'team11':''}">
+        <div class="eyebrow">${p.bye?'FIRST-ROUND BYE':`PLAYOFF SEED #${seed}`}</div>
+        <h2>${p.bye?'Waiting for Round 1':`#${seed} Team ${t.team} vs #${D.seeds[p.opponent]} Team ${p.opponent}`}</h2>
+        <p>${p.outlook}</p>
+        ${opponent?`<div class="profilecompare">
+          <div><span>Net Avg</span><strong>${t.netAvg}</strong><small>Team ${t.team}</small></div>
+          <div><span>Opponent Net</span><strong>${opponent.netAvg}</strong><small>Team ${opponent.team}</small></div>
+          <div><span>Gross Avg</span><strong>${t.grossAvg}</strong><small>#${p.grossRank} league rank</small></div>
+          <div><span>Opponent Gross</span><strong>${opponent.grossAvg}</strong><small>#${opponent.playoffProfile.grossRank} league rank</small></div>
+        </div>`:''}
+      </div>`
+   : `<div class="hero small"><div class="eyebrow">REGULAR SEASON COMPLETE</div><h2>Outside playoff field</h2><p>${p.status}</p></div>`;
+ document.getElementById('teamView').innerHTML=`
+   <div class="hero small"><div class="eyebrow">TEAM ${t.team} PLAYOFF PROFILE</div><h2>${t.name}</h2>
+   <p>Final position: <strong>#${t.pos}</strong> • ${fmt(t.points)} points • Final week: ${fmt(t.finalPts)} points</p></div>
+   <div class="cards">
+    <div class="mini"><span>Playoff Status</span><strong>${p.qualified?(p.bye?'BYE':`#${seed}`):'OUT'}</strong><small>${p.status}</small></div>
+    <div class="mini"><span>Gross Stroke Rank</span><strong>#${p.grossRank}</strong><small>${t.grossAvg} average</small></div>
+    <div class="mini"><span>Net Stroke Rank</span><strong>#${p.netRank}</strong><small>${t.netAvg} average</small></div>
+    <div class="mini"><span>Round 16</span><strong>${fmt(t.r16Gross)} / ${fmt(t.r16Net)}</strong><small>Gross / Net</small></div>
+    <div class="mini"><span>Course Handicap</span><strong>${fmt(t.hdcp)}</strong><small>Final export</small></div>
+   </div>${playoffBlock}`;
+}sel.onchange=teamView;teamView();
+document.getElementById('standings').innerHTML=table(['Pos','Team','Points','Final Week','Gross Avg','Net Avg','Result'],D.teams.map((t,i)=>{let r=[t.pos,`#${t.team} ${t.name}`,fmt(t.points),fmt(t.finalPts),t.grossAvg,t.netAvg,i<12?(i<4?'BYE':'PLAYOFFS'):'Eliminated'];r._cls=(i<12?'qual ':'')+(t.team===11?'team11 ':'')+(i===11?'cut':'');return r}));

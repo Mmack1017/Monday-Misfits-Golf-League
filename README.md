@@ -1,23 +1,24 @@
-# Monday Misfits League Central — FINAL WEEK Update
+# Monday Misfits — Playoff Edition
+Generated from the final Round 16 exports.
 
-Updated through Round 14 with one regular-season match remaining.
-
-Includes:
-- Final Week homepage
-- League-wide playoff board
-- Current cut line
-- Final-week matchup impact rankings
-- Final-opponent strength of schedule
-- Power Rankings
-- Final Week Playoff Machine
-- Team Center
-- Team-selectable Who Should I Root For?
-- Gross Stroke Play leaderboard
-- Net Stroke Play leaderboard
-
-Upload these five individual files to the GitHub repository root and replace the existing files:
+Upload these files to the GitHub repository root, replacing the current versions:
 - index.html
 - styles.css
 - script.js
 - data.js
 - README.md
+
+Notes:
+- Top 12 are shown as the playoff field.
+- Top 4 are shown with first-round byes.
+- The two teams tied at final position 3 are displayed in the same order as the official standings export; confirm league tiebreak ordering if the bracket assigns them differently.
+
+## Playoff profile update
+Every team now has an expanded Team Center profile with:
+- playoff qualification / seed / bye status
+- Round 1 opponent where applicable
+- full-season gross and net stroke-play rank
+- gross and net averages
+- Round 16 gross/net result
+- course handicap
+- opponent comparison and season-average edge for Round 1 teams

@@ -1,26 +1,22 @@
 <!doctype html>
-<html lang="en"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Monday Misfits Central</title><link rel="stylesheet" href="styles.css?v=finalweek">
-</head><body>
-<header class="topbar"><div><div class="eyebrow">2026 MONDAY MISFITS</div><h1>League Central</h1></div><div class="round-pill">FINAL WEEK</div></header>
-<nav class="tabs">
-<button class="tab active" data-tab="home">Home</button><button class="tab" data-tab="playoff">Playoff Center</button>
-<button class="tab" data-tab="week">Final Week</button><button class="tab" data-tab="sos">Strength of Schedule</button>
-<button class="tab" data-tab="power">Power Rankings</button><button class="tab" data-tab="sim">Playoff Machine</button>
-<button class="tab" data-tab="team">Team Center</button><button class="tab" data-tab="stroke">Stroke-Play Preview</button>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Monday Misfits — Playoff Edition</title><link rel="stylesheet" href="styles.css?v=playoffs"></head>
+<body>
+<header><div><div class="eyebrow">2026 MONDAY MISFITS</div><h1>PLAYOFF CENTRAL</h1><p>Regular season complete • Top 12 advance • Top 4 earn first-round byes</p></div><div class="badge">TEAM 11 • #11 SEED</div></header>
+<nav>
+<button class="active" data-tab="home">Playoff Home</button><button data-tab="bracket">Bracket</button><button data-tab="matchups">Round 1</button><button data-tab="stroke">Stroke Play</button><button data-tab="teams">Team Center</button><button data-tab="season">Final Standings</button>
 </nav>
 <main>
-<section id="home" class="panel active"><div id="headlineHero" class="feature hero-feature"></div><div id="storyCards" class="story-grid"></div>
-<div class="grid two"><div class="card"><div class="card-head"><h2>Current Standings</h2><span>Top 12 qualify</span></div><div id="standingsTable"></div></div>
-<div class="card"><div class="card-head"><h2>Bubble Watch</h2><span>9th through 18th</span></div><div id="bubbleTable"></div></div></div></section>
-<section id="playoff" class="panel"><div class="hero-grid" id="playoffCards"></div><div class="card"><div class="card-head"><h2>Playoff Outlook</h2><span>Model estimate</span></div><div id="playoffTable"></div></div>
-<div class="card"><div class="card-head"><h2>Final Week Playoff Board</h2><span>One match left</span></div><div id="scenarioTable"></div></div></section>
-<section id="week" class="panel"><div id="weekHeadline" class="feature"></div><div class="card"><div class="card-head"><h2>Final Week Impact Rankings</h2><span>League-wide implications</span></div><div id="matchupTable"></div></div></section>
-<section id="sos" class="panel"><div class="card"><div class="card-head"><h2>Remaining Strength of Schedule</h2><span>Hardest ranked #1</span></div><div id="sosTable"></div></div></section>
-<section id="power" class="panel"><div class="grid two"><div class="card"><div class="card-head"><h2>Power Rankings</h2><span>Points + form + schedule</span></div><div id="powerTable"></div></div><div class="card"><div class="card-head"><h2>Trend Board</h2><span>Recent form</span></div><div id="trendTable"></div></div></div></section>
-<section id="sim" class="panel"><div class="card"><div class="card-head"><h2>Final Week Playoff Machine</h2><span>Enter points for the first-listed team</span></div><div id="simControls" class="sim-grid"></div><button id="runSim" class="primary">Update standings</button></div><div class="card"><div class="card-head"><h2>Simulated Standings</h2><span>Final Standings</span></div><div id="simTable"></div></div></section>
-<section id="team" class="panel"><div class="selector-row"><label for="teamSelect">Select a team</label><select id="teamSelect"></select></div><div id="teamView"></div></section>
-<section id="stroke" class="panel"><div class="card"><div class="card-head"><h2>Stroke-Play Preview</h2><span>Playoffs switch to stroke play</span></div><div id="strokeTable"></div></div></section>
-</main><footer>Unofficial companion site for the Monday Misfits Golf League.</footer>
-<script src="data.js?v=finalweek"></script><script src="script.js?v=finalweek"></script></body></html>
+<section id="home" class="panel active">
+<div class="hero"><div class="eyebrow">THE COMEBACK IS COMPLETE</div><h2>Team 11 is playoff bound.</h2><p>Mason McDonald / Gino Carachilo closed the regular season with 6.5 points, finished at <strong>80.5</strong>, and climbed to the <strong>#11 seed</strong>.</p></div>
+<div id="homeCards" class="cards"></div>
+<div class="card"><div class="head"><h2>Playoff Field</h2><span>Top 4 receive byes</span></div><div id="field"></div></div>
+</section>
+<section id="bracket" class="panel"><div class="hero small"><div class="eyebrow">12-TEAM PLAYOFF</div><h2>Opening bracket</h2><p>Seeds 1–4 wait for the Round 1 winners.</p></div><div id="bracketGrid" class="bracket"></div></section>
+<section id="matchups" class="panel"><div class="card"><div class="head"><h2>Round 1 Matchups</h2><span>Stroke-play profile</span></div><div id="matchupCards" class="cards"></div></div></section>
+<section id="stroke" class="panel"><div class="grid"><div class="card"><div class="head"><h2>Gross Stroke Play</h2><span>Full season</span></div><div id="gross"></div></div><div class="card"><div class="head"><h2>Net Stroke Play</h2><span>Full season</span></div><div id="net"></div></div></div></section>
+<section id="teams" class="panel"><div class="card"><div class="head"><h2>Team Center</h2><select id="teamSelect"></select></div><div id="teamView"></div></div></section>
+<section id="season" class="panel"><div class="card"><div class="head"><h2>Final Regular-Season Standings</h2><span>Top 12 qualified</span></div><div id="standings"></div></div></section>
+</main>
+<script src="data.js?v=playoffs"></script><script src="script.js?v=playoffs"></script>
+</body></html>

@@ -4,3 +4,14 @@
 .profilecompare>div{background:#0c1d2d;border:1px solid var(--line);border-radius:12px;padding:12px}
 .profilecompare span,.profilecompare small{display:block;color:var(--muted)}
 .profilecompare strong{display:block;font-size:24px;margin:2px 0}
+
+.profilegrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.profilecard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;position:relative}
+.profilecard.bye-card{border-top:4px solid var(--good)}
+.profilecard.team11{border-top:4px solid var(--accent)}
+.profiletop{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.profiletop .seedbig{font-size:30px;font-weight:900}
+.profileteam{font-size:18px;font-weight:800;margin:4px 0 12px}
+.profileline{display:flex;justify-content:space-between;gap:10px;border-top:1px solid var(--line);padding:8px 0}
+.profileline span{color:var(--muted)}
+.profilematch{margin-top:12px;padding:10px;border-radius:10px;background:#0c1d2d;border:1px solid var(--line)}

@@ -4,7 +4,7 @@ const table=(heads,rows)=>`<div class="tablewrap"><table><thead><tr>${heads.map(
 document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));document.getElementById(b.dataset.tab).classList.add('active')});
 const t11=by[11];
 document.getElementById('homeCards').innerHTML=[
- ['Final Seed','#11','Up from 12th entering finale'],['Final Points','80.5','6.5 points in final match'],['R16 Gross',fmt(t11.r16Gross),'Final regular-season round'],['R16 Net',fmt(t11.r16Net),'Handicap-adjusted'],['Round 1','#6 vs #11','Team 2 vs Team 11']
+ ['Final Seed','#11','Up from 12th entering finale'],['Final Points','80.5','6.5 points in final match'],['R16 Gross',fmt(t11.r16Gross),'Final regular-season round'],['R16 Net',fmt(t11.r16Net),'Handicap-adjusted'],['Playoff Field','12 teams','Top 4 receive first-round byes']
 ].map(x=>`<div class="mini"><span>${x[0]}</span><strong>${x[1]}</strong><small>${x[2]}</small></div>`).join('');
 document.getElementById('field').innerHTML=table(['Seed','Team','Points','Final Week','Status'],D.playoffs.map((id,i)=>{let t=by[id],r=[`<span class="seed">${i+1}</span>`,`#${id} ${t.name}`,fmt(t.points),fmt(t.finalPts),i<4?'<span class="bye">FIRST-ROUND BYE</span>':'Round 1'];r._cls=id===11?'team11':'';return r}));
 document.getElementById('bracketGrid').innerHTML=`
@@ -14,6 +14,27 @@ document.getElementById('matchupCards').innerHTML=D.round1.map(m=>{let a=by[m.a]
 let gross=[...D.teams].sort((a,b)=>a.grossAvg-b.grossAvg), net=[...D.teams].sort((a,b)=>a.netAvg-b.netAvg);
 document.getElementById('gross').innerHTML=table(['Rank','Team','Avg','R16'],gross.map((t,i)=>{let r=[i+1,`#${t.team} ${t.name}`,t.grossAvg,fmt(t.r16Gross)];r._cls=t.team===11?'team11':'';return r}));
 document.getElementById('net').innerHTML=table(['Rank','Team','Avg','R16'],net.map((t,i)=>{let r=[i+1,`#${t.team} ${t.name}`,t.netAvg,fmt(t.r16Net)];r._cls=t.team===11?'team11':'';return r}));
+
+const playoffProfiles=D.playoffs.map(id=>{
+  const t=by[id], p=t.playoffProfile;
+  const opp=p.opponent?by[p.opponent]:null;
+  const oppSeed=p.opponent?D.seeds[p.opponent]:null;
+  let matchup=p.bye
+    ? `<div class="profilematch"><strong>FIRST-ROUND BYE</strong><br><span class="muted">Waits for a Round 1 winner</span></div>`
+    : `<div class="profilematch"><strong>Round 1: #${p.seed} vs #${oppSeed}</strong><br>Team ${t.team} vs Team ${opp.team}<br><span class="${p.netDiff<0?'edge':'muted'}">${p.outlook}</span></div>`;
+  return `<div class="profilecard ${p.bye?'bye-card':''} ${t.team===11?'team11':''}">
+    <div class="profiletop"><div><div class="eyebrow">PLAYOFF PROFILE</div><div class="seedbig">#${p.seed}</div></div><div>${p.bye?'<span class="bye">BYE</span>':'ROUND 1'}</div></div>
+    <div class="profileteam">Team ${t.team} — ${t.name}</div>
+    <div class="profileline"><span>Final points</span><strong>${fmt(t.points)}</strong></div>
+    <div class="profileline"><span>Gross stroke</span><strong>#${p.grossRank} · ${t.grossAvg}</strong></div>
+    <div class="profileline"><span>Net stroke</span><strong>#${p.netRank} · ${t.netAvg}</strong></div>
+    <div class="profileline"><span>Round 16</span><strong>${fmt(t.r16Gross)} gross / ${fmt(t.r16Net)} net</strong></div>
+    <div class="profileline"><span>Handicap</span><strong>${fmt(t.hdcp)}</strong></div>
+    ${matchup}
+  </div>`;
+}).join('');
+document.getElementById('profileGrid').innerHTML=playoffProfiles;
+
 const sel=document.getElementById('teamSelect');sel.innerHTML=D.teams.map(t=>`<option value="${t.team}" ${t.team===11?'selected':''}>#${t.team} ${t.name}</option>`).join('');
 function teamView(){
  let t=by[+sel.value],p=t.playoffProfile,seed=p.seed;

@@ -1,10 +1,10 @@
 <!doctype html>
 <html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Monday Misfits — Playoff Edition</title><link rel="stylesheet" href="styles.css?v=playoffs"></head>
+<title>Monday Misfits — Playoff Edition</title><link rel="stylesheet" href="styles.css?v=profiles2"></head>
 <body>
 <header><div><div class="eyebrow">2026 MONDAY MISFITS</div><h1>PLAYOFF CENTRAL</h1><p>Regular season complete • Top 12 advance • Top 4 earn first-round byes</p></div><div class="badge">TEAM 11 • #11 SEED</div></header>
 <nav>
-<button class="active" data-tab="home">Playoff Home</button><button data-tab="bracket">Bracket</button><button data-tab="matchups">Round 1</button><button data-tab="stroke">Stroke Play</button><button data-tab="teams">Team Center</button><button data-tab="season">Final Standings</button>
+<button class="active" data-tab="home">Playoff Home</button><button data-tab="bracket">Bracket</button><button data-tab="matchups">Round 1</button><button data-tab="stroke">Stroke Play</button><button data-tab="profiles">Playoff Profiles</button><button data-tab="teams">Team Center</button><button data-tab="season">Final Standings</button>
 </nav>
 <main>
 <section id="home" class="panel active">
@@ -15,8 +15,18 @@
 <section id="bracket" class="panel"><div class="hero small"><div class="eyebrow">12-TEAM PLAYOFF</div><h2>Opening bracket</h2><p>Seeds 1–4 wait for the Round 1 winners.</p></div><div id="bracketGrid" class="bracket"></div></section>
 <section id="matchups" class="panel"><div class="card"><div class="head"><h2>Round 1 Matchups</h2><span>Stroke-play profile</span></div><div id="matchupCards" class="cards"></div></div></section>
 <section id="stroke" class="panel"><div class="grid"><div class="card"><div class="head"><h2>Gross Stroke Play</h2><span>Full season</span></div><div id="gross"></div></div><div class="card"><div class="head"><h2>Net Stroke Play</h2><span>Full season</span></div><div id="net"></div></div></div></section>
+
+<section id="profiles" class="panel">
+  <div class="hero small">
+    <div class="eyebrow">ALL 12 PLAYOFF TEAMS</div>
+    <h2>Playoff Profiles</h2>
+    <p>Seed, first-round status, stroke-play form, and matchup edge for every qualifier.</p>
+  </div>
+  <div id="profileGrid" class="profilegrid"></div>
+</section>
+
 <section id="teams" class="panel"><div class="card"><div class="head"><h2>Team Center</h2><select id="teamSelect"></select></div><div id="teamView"></div></div></section>
 <section id="season" class="panel"><div class="card"><div class="head"><h2>Final Regular-Season Standings</h2><span>Top 12 qualified</span></div><div id="standings"></div></div></section>
 </main>
-<script src="data.js?v=playoffs"></script><script src="script.js?v=playoffs"></script>
+<script src="data.js?v=profiles2"></script><script src="script.js?v=profiles2"></script>
 </body></html>

@@ -22,3 +22,8 @@ Every team now has an expanded Team Center profile with:
 - Round 16 gross/net result
 - course handicap
 - opponent comparison and season-average edge for Round 1 teams
+
+## Fix in this version
+A dedicated **Playoff Profiles** tab now displays all 12 qualifying teams at the same time.
+Each playoff team has its own card with seed, bye/Round 1 opponent, gross/net stroke-play rank and average, Round 16 gross/net result, handicap, and matchup outlook.
+The Team Center selector still supports all 24 teams.
